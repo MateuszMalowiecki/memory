@@ -1,0 +1,72 @@
+WindowManager:
+    MenuWindow:
+    GameWindow:
+
+<MenuWindow>:
+    name: "menu"
+    GridLayout:
+        cols: 1
+
+        Button:
+            default_size_values: .2, .2
+            font_size: '40sp'
+            text: "Start new game"
+            on_release:
+                root.go_to_game()
+
+        Button:
+            default_size_values: .2, .2
+            font_size: '40sp'
+            text: "Exit game"
+            on_release: app.stop()
+
+<GameWindow>:
+    name: "game_window"
+    game_label: game_label
+    fields: fields
+    GridLayout:
+        cols: 1
+        Button:
+            background_normal: "left_arrow.png"
+            size_hint: 1, .5
+            on_release: 
+                app.root.current = "menu"
+                root.manager.transition.direction = "right"
+        Label:
+            id: game_label
+            size_hint: 1, .5
+        GridLayout:
+            id: fields
+            cols: 4
+            Button:
+                on_release: root.show_button(0)
+            Button:
+                on_release: root.show_button(1)
+            Button:
+                on_release: root.show_button(2)
+            Button:
+                on_release: root.show_button(3)
+            Button:
+                on_release: root.show_button(4)
+            Button:
+                on_release: root.show_button(5)
+            Button:
+                on_release: root.show_button(6)
+            Button:
+                on_release: root.show_button(7)
+            Button:
+                on_release: root.show_button(8)
+            Button:
+                on_release: root.show_button(9)
+            Button:
+                on_release: root.show_button(10)
+            Button:
+                on_release: root.show_button(11)
+            Button:
+                on_release: root.show_button(12)
+            Button:
+                on_release: root.show_button(13)
+            Button:
+                on_release: root.show_button(14)
+            Button:
+                on_release: root.show_button(15)
