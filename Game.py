@@ -1,32 +1,21 @@
 import random
-from cmath import pi
-import re
 from time import time
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
-from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
-
-
-class MenuWindow(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
-
-    def go_to_game(self):
-        self.parent.current = "game_window"
-        self.manager.screens[1].init_game()
-
 
 class WindowManager(ScreenManager):
     pass
 
+class MenuWindow(Screen):
+    def go_to_game(self):
+        self.parent.current = "game_window"
+        self.manager.screens[1].init_game()
+
 class GameWindow(Screen):
     game_label = ObjectProperty(None)
     fields = ObjectProperty(None)
-
-    def __init__(self, **kw):
-        super().__init__(**kw)
 
     # Starts a new game
     def init_game(self):
@@ -61,12 +50,12 @@ class GameWindow(Screen):
 
         if self.previous_bad_pair is not None:
             first_bad, second_bad = self.previous_bad_pair
-            if second_bad == i:
-                return
-            first_bad_button = self.get_button(first_bad)
-            first_bad_button.text = ""
-            second_bad_button = self.get_button(second_bad)
-            second_bad_button.text = ""
+            if first_bad != i:
+                first_bad_button = self.get_button(first_bad)
+                first_bad_button.text = ""
+            if second_bad != i:
+                second_bad_button = self.get_button(second_bad)
+                second_bad_button.text = ""
             self.previous_bad_pair = None
 
         if self.first_shown is None:
@@ -94,10 +83,9 @@ class GameWindow(Screen):
 
     def win_game_info(self):
         game_end = time()
-        self.game_label.text += f"\nCongratulations, you won in {int(game_end - self.game_start)} seconds!!!"
+        self.game_label.text = f"\nCongratulations, you won in {int(game_end - self.game_start)} seconds!!!"
 
 kv = Builder.load_file("Game.kv")
-
 
 class MemeoryGameApp(App):
     def build(self):
